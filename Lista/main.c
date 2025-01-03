@@ -8,11 +8,15 @@ int main() {
     REGISTRO reg1 = {10};
     REGISTRO reg2 = {20};
     REGISTRO reg3 = {15};
+    REGISTRO reg4 = {1};
+    REGISTRO reg5 = {19};
 
     printf("Inserindo elementos...\n");
     inserirElemListaOrd(&lista, reg1);
     inserirElemListaOrd(&lista, reg2);
     inserirElemListaOrd(&lista, reg3);
+    inserirElemListaOrd(&lista, reg4);
+    inserirElemListaOrd(&lista, reg5);
 
     printf("Lista após inserções:\n");
     exibirLista(&lista);

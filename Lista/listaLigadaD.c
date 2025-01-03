@@ -62,14 +62,27 @@ PONT buscaSeqExc(LISTA* l, TIPOCHAVE ch, PONT* ant) {
 
 
 bool excluirElemLista(LISTA* l, TIPOCHAVE ch){
+  
   PONT ant, i;
+  
   i = buscaSeqExc(l,ch,&ant);
-  if (i == NULL) return false;
-  if (ant == NULL) l->inicio = i->prox;
-  else ant->prox = i->prox;
-  if (i->prox) i->prox->ant = ant;
+  
+  if (i == NULL){
+     return false;
+  }
+  if (ant == NULL){
+     l->inicio = i->prox;
+  }else {
+    ant->prox = i->prox;
+  }
+  if (i->prox){
+     i->prox->ant = ant;
+  }
+  
   free(i);
+  
   return true;
+
 } 
 
 
@@ -105,22 +118,30 @@ bool inserirElemListaOrd(LISTA* l, REGISTRO reg) {
   i->prox = NULL;
 
   if (ant == NULL) {  //Se o anterior é nulo, temos o primeiro elemento logo, inserimos o valor e o ant recebe nulo
+    
     i->prox = l->inicio;
-    PONT aux;
+    PONT auxiliar;
+
     if(l->inicio != NULL){
-        aux = l->inicio;
-        aux -> ant = i; //  o inicio agora apontará novo é apontado pelo velho
+        auxiliar = l->inicio;
+        auxiliar -> ant = i; //  o inicio agora apontará novo é apontado pelo velho
     } 
     l->inicio=i; // aponta para o novo inicio da lista
   } else {
+   
     i->prox = ant->prox;
+    PONT proximoAnterior;
+
     if (ant->prox != NULL) {
-        PONT proximoAnt = ant->prox; // Armazena o próximo de "ant"
-        proximoAnt->ant = i;         // Atualiza o ponteiro "ant" do próximo elemento
+        proximoAnterior = ant->prox;       // Armazena o próximo de "ant"
+        proximoAnterior->ant = i;         // Atualiza o ponteiro "ant" do próximo elemento
     }
+
     ant->prox = i;  // Atualiza o ponteiro "prox" do "ant" para o novo elemento
     i->ant = ant;   // Define o "ant" do novo elemento como "ant"
-}
+
+  }
+
   return true;
 
 }
