@@ -10,9 +10,10 @@ typedef struct {
     // outros campos...
 } REGISTRO;
 
-typedef struct tempRegistro {
+// Modificação da struct aux para incluir o ponteiro para o elemento anterior
+typedef struct aux {
     REGISTRO reg;
-    struct tempRegistro* prox;
+    struct aux *ant, *prox;
 } ELEMENTO;
 
 typedef ELEMENTO* PONT;

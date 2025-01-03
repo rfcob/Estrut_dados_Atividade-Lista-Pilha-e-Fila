@@ -77,13 +77,23 @@ void reinicializarLista(LISTA* l) {
   l->inicio = NULL;
 }
 
+
+// Função inserir modifica, incluindo a atualização do pronteiro anterior_______________________________________________
+
 bool inserirElemListaOrd(LISTA* l, REGISTRO reg) {
+
   TIPOCHAVE ch = reg.chave;
   PONT ant, i;
+
   i = buscaSeqExc(l, ch, &ant);
-  if (i != NULL) return false;
+  
+  if (i != NULL) {
+    return false;
+  }
+
   i = (PONT)malloc(sizeof(ELEMENTO));
   i->reg = reg;
+
   if (ant == NULL) {
     i->prox = l->inicio;
     l->inicio = i;
@@ -91,8 +101,12 @@ bool inserirElemListaOrd(LISTA* l, REGISTRO reg) {
     i->prox = ant->prox;
     ant->prox = i;
   }
+  
   return true;
+
 }
+
+//________________________________________________________________________________________________________________________
 
 PONT retornarPrimeiro(LISTA* l, TIPOCHAVE *ch) {
   if (l->inicio != NULL) *ch = l->inicio->reg.chave;
