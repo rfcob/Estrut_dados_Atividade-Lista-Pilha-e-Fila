@@ -1,5 +1,11 @@
 #include "filaDinamica.h"
 
+//____________________________________________________________________________________________________________________________________
+//____________________________________________________________________________________________________________________________________
+//____________________________________________________________________________________________________________________________________
+//____________________________________________________________________________________________________________________________________
+
+//FUNÇÔES MODIFICADAS PARA GARANTIR O FUNCIONAMENTO DO MAIN
 
 //____________________________________________________________________________________________________________________________________
 /* Inicialização da fila ligada*/
@@ -62,11 +68,17 @@ void exibirFila(FILA* f){
 
 } 
 
-
-//FUNÇÕES QUE DEVEM SER MODIFICADAS PELO ENUNCIADO DO EXERCICIO_______________________________________________________________________________________
+//____________________________________________________________________________________________________________________________________
+//____________________________________________________________________________________________________________________________________
+//____________________________________________________________________________________________________________________________________
+//____________________________________________________________________________________________________________________________________
+//FUNÇÕES QUE DEVEM SER MODIFICADAS PELO ENUNCIADO DO EXERCICIO
 
 //____________________________________________________________________________________________________________________________________________________
 /* Inserção no fim da fila */
+
+//Na inserção quem deve ser modificado é o apontamento do ultimo elemento. Assim, recebe-se o valor (reg), copiado para o novo. Esse deverá ter o proximo
+//elemento nulo. O ultimo nó da fila deve agora aponta para o novo (linha 83) nó e o fim deve ser atualizado (linha 84)
 
 
 
@@ -77,8 +89,8 @@ bool inserirNaFila(FILA* f,REGISTRO reg) {
   novo->reg = reg;
   novo->prox = NULL;
 
-  f->fim->prox = novo; 
-  f->fim = novo;
+  f->fim->prox = novo;  //linha 83
+  f->fim = novo; //linha 84
 
   return true;
 } 
@@ -88,6 +100,9 @@ bool inserirNaFila(FILA* f,REGISTRO reg) {
 //____________________________________________________________________________________________________________________________________________________
 /*Exclusão da fila*/
 
+//Na exclusão o elemento que deverá ser retirado é o primeiro que deu entrada. Assim, deverá ser atualizado o inicio, ou seja, o cabeça deve apontar para o novo inicio
+// A linha 106 mostra como proceder. O ponteiro excluir inicialmente aponta para o primeiro valor válido, depois em 106 o primeiro valor recabera o próximo ao exluido, 
+//ou seja, apontará para o valor seguinte.D Depois é becessário atualizar o fim se a fila estiver vazia
 
 
 bool excluirDaFila(FILA* f, REGISTRO* reg) {
@@ -98,7 +113,7 @@ bool excluirDaFila(FILA* f, REGISTRO* reg) {
     PONT excluir = f->inicio->prox; 
     *reg = excluir->reg;           
 
-    f->inicio->prox = excluir->prox; 
+    f->inicio->prox = excluir->prox; //linha 106
 
     if (f->inicio->prox == NULL) {
         f->fim = f->inicio;
@@ -113,7 +128,9 @@ bool excluirDaFila(FILA* f, REGISTRO* reg) {
 
 
 
-
+//____________________________________________________________________________________________________________________________________
+//____________________________________________________________________________________________________________________________________
+//____________________________________________________________________________________________________________________________________
 //____________________________________________________________________________________________________________________________________
 //FUNÇÔES QUE NÃO FORAM MODIFICDAS
 
