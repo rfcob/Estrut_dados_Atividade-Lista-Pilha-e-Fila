@@ -37,6 +37,9 @@ int tamanho(FILA* f) {
 
 //____________________________________________________________________________________________________________________________________
 
+// Não havia teste para caso a lista não tivesse sido inicializada. Foi incluido. Assim, depois de deletar a lista o print da a msg de erro.
+
+
 /* Exibição da fila sequencial */
 void exibirFila(FILA* f){
 
@@ -45,15 +48,16 @@ void exibirFila(FILA* f){
     return;
   }
 
-  PONT end = f->inicio->prox;
+  PONT end = f->inicio->prox; // O primiero elemento válido não é o nó cabeça e sim inicio.
   
   printf("Fila: \" ");
   
   while (end != NULL){
-    printf("%d ", end->reg.chave); // soh lembrando TIPOCHAVE = int
+    printf("%d ", end->reg.chave); 
     end = end->prox;
   }
   
+  printf("\"\n");
   printf("\"\n");
 
 } 
@@ -133,16 +137,11 @@ void destruirFila(FILA* f) {
   f->fim = NULL;
 } /* destruirFila */
 
-
-
-
 /* retornarPrimeiro */
 PONT retornarPrimeiro(FILA* f, TIPOCHAVE *ch){
   if (f->inicio != NULL) *ch = f->inicio->reg.chave;
   return f->inicio;
 } /* retornarPrimeiro */
-
-
 
 /* retornarUltimo  */
 PONT retornarUltimo(FILA* f, TIPOCHAVE* ch){
@@ -150,8 +149,6 @@ PONT retornarUltimo(FILA* f, TIPOCHAVE* ch){
   *ch = f->fim->reg.chave;
   return f->fim;
 } /* retornarUltimo */
-
-
 
 /* Busca sequencial */
 PONT buscaSeq(FILA* f,TIPOCHAVE ch){
@@ -162,8 +159,6 @@ PONT buscaSeq(FILA* f,TIPOCHAVE ch){
   }
   return NULL;
 } /* buscaSeq */
-
-
 
 /* Busca sequencial com sentinela alocado dinamicamente */
 PONT buscaSeqSent1(FILA* f,TIPOCHAVE ch){
@@ -178,8 +173,6 @@ PONT buscaSeqSent1(FILA* f,TIPOCHAVE ch){
   if (pos!=sentinela) return pos;
   return NULL;
 } /* buscaSeqSent1 */
-
-
 
 /* Busca sequencial com sentinela como variavel local */
 PONT buscaSeqSent2(FILA* f,TIPOCHAVE ch){
