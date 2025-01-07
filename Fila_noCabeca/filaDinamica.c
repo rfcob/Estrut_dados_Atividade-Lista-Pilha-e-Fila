@@ -25,7 +25,7 @@ void inicializarFila(FILA* f){
 
 /* Retornar o tamanho da fila (numero de elementos) */
 int tamanho(FILA* f) {
-  PONT end = f->noCabeca->prox;
+  PONT end = f->inicio->prox;
   int tam = 0;
   while (end != NULL){
     tam++;
@@ -37,9 +37,81 @@ int tamanho(FILA* f) {
 
 //____________________________________________________________________________________________________________________________________
 
+/* Exibição da fila sequencial */
+void exibirFila(FILA* f){
+
+  if(f->inicio==NULL){
+    printf("Lista Não inicializada");
+    return;
+  }
+
+  PONT end = f->inicio->prox;
+  
+  printf("Fila: \" ");
+  
+  while (end != NULL){
+    printf("%d ", end->reg.chave); // soh lembrando TIPOCHAVE = int
+    end = end->prox;
+  }
+  
+  printf("\"\n");
+
+} 
+
+
+//FUNÇÕES QUE DEVEM SER MODIFICADAS PELO ENUNCIADO DO EXERCICIO_______________________________________________________________________________________
+
+//____________________________________________________________________________________________________________________________________________________
+/* Inserção no fim da fila */
 
 
 
+bool inserirNaFila(FILA* f,REGISTRO reg) {
+
+  PONT novo = (PONT) malloc(sizeof(ELEMENTO));
+
+  novo->reg = reg;
+  novo->prox = NULL;
+
+  f->fim->prox = novo; 
+  f->fim = novo;
+
+  return true;
+} 
+
+
+
+//____________________________________________________________________________________________________________________________________________________
+/*Exclusão da fila*/
+
+
+
+bool excluirDaFila(FILA* f, REGISTRO* reg) {
+    if (f->inicio->prox == NULL) { 
+        return false;
+    }
+
+    PONT excluir = f->inicio->prox; 
+    *reg = excluir->reg;           
+
+    f->inicio->prox = excluir->prox; 
+
+    if (f->inicio->prox == NULL) {
+        f->fim = f->inicio;
+    }
+
+    free(excluir); 
+
+    return true;
+} 
+
+
+
+
+
+
+//____________________________________________________________________________________________________________________________________
+//FUNÇÔES QUE NÃO FORAM MODIFICDAS
 
 
 /* Retornar o tamanho em bytes da fila.*/
@@ -79,17 +151,6 @@ PONT retornarUltimo(FILA* f, TIPOCHAVE* ch){
   return f->fim;
 } /* retornarUltimo */
 
-
-/* Exibição da fila sequencial */
-void exibirFila(FILA* f){
-  PONT end = f->inicio;
-  printf("Fila: \" ");
-  while (end != NULL){
-    printf("%d ", end->reg.chave); // soh lembrando TIPOCHAVE = int
-    end = end->prox;
-  }
-  printf("\"\n");
-} /* exibirFila */ 
 
 
 /* Busca sequencial */
@@ -132,52 +193,3 @@ PONT buscaSeqSent2(FILA* f,TIPOCHAVE ch){
   if (pos!=&sentinela) return pos;
   return NULL;
 } /* buscaSeqSent1 */
-
-
-
-
-
-//FUNÇÕES QUE DEVEM SER MODIFICADAS PELO ENUNCIADO DO EXERCICIO_______________________________________________________________________________________
-
-//____________________________________________________________________________________________________________________________________________________
-/* Inserção no fim da fila */
-
-
-
-bool inserirNaFila(FILA* f,REGISTRO reg) {
-
-  PONT novo = (PONT) malloc(sizeof(ELEMENTO));
-  novo->reg = reg;
-  novo->prox = NULL;
-  
-    novo->reg = reg;
-    novo->prox = NULL;
-    f->fim->prox = novo; 
-    f->fim = novo;
-
-  return true;
-} 
-
-
-
-//____________________________________________________________________________________________________________________________________________________
-/*Exclusão da fila*/
-
-
-
-bool excluirDaFila(FILA* f, REGISTRO* reg) {
-  if (f->inicio==NULL){
-    return false;                     
-  }
-
-  *reg = f->inicio->reg;
-  PONT apagar = f->inicio;
-  f->inicio = f->inicio->prox;
-  free(apagar);
-  
-  if (f->inicio == NULL){
-    f->fim = NULL;
-  }
-    
-  return true;
-} 
